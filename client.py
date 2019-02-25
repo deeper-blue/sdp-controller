@@ -7,7 +7,6 @@
 import socket
 
 HOST = '192.168.105.116'  # The server's hostname or IP address
-# HOST = "127.0.0.1"
 PORT = 64432        # The port used by the server
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
@@ -16,36 +15,35 @@ s.connect((HOST, PORT))
 def move_piece(cellA,cellB):
     message = 'move_piece;' + str(cellA) + ';' + str(cellB)
     send(message)
-    #print("Sent: %s" % (send(message)))
 
 def move(cellA, cellB):
     message = 'move;' + str(cellA) + ';' + str(cellB)
     send(message)
-    #print("Sent: %s" % (send(message)))
 
 def take_piece(cellA, cellB, piece):
     message = 'take_piece;' + str(cellA) + ';' + str(cellB) + ';' + str(piece)
     send(message)
-    #print("Sent: %s" % (send(message)))
 
 def perform_castling_at(cellA, cellB, cellC, cellD):
     message = 'perform_castling_at;' + str(cellA) + ';' + str(cellB) + ';' + str(cellC) + ';' + str(cellD)
     send(message)
-    #print("Sent: %s" % (send(message)))
 
 def reset():
     message = 'reset;'
     send(message)
-    #print("Sent: %s" % (send(message)))
 
 # This function is to send the message to the server(ev3)
 def send(message):
-    print('Will send' + message)
+    print('Will send ' + message)
     s.sendall(str.encode(message))
-    data = s.recv(1024)
+    data = s.recv(4000)
     print('Received', repr(data))
+    print("\n")
     return data
 
 
 move_piece(('A',1),('A',2))
 take_piece(('A',3),('A',4),'black_queen')
+move(('A',5),('A',6))
+perform_castling_at(('B',1),('B',2),('B',3),('B',4))
+reset()
