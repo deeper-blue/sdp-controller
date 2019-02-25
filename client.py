@@ -40,10 +40,3 @@ def send(message):
     print('Received', repr(data))
     print("\n")
     return data
-
-
-move_piece(('A',1),('A',2))
-take_piece(('A',3),('A',4),'black_queen')
-move(('A',5),('A',6))
-perform_castling_at(('B',1),('B',2),('B',3),('B',4))
-reset()
