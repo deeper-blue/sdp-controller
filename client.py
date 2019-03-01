@@ -5,6 +5,7 @@
 #   Wanjing Chen
 
 import socket
+import time
 
 HOST = '192.168.105.116'  # The server's hostname or IP address
 PORT = 64432        # The port used by the server
@@ -34,9 +35,12 @@ def reset():
 
 # This function is to send the message to the server(ev3)
 def send(message):
+    t0 = time.time()
     print('Will send ' + message)
     s.sendall(str.encode(message))
     data = s.recv(4000)
     print('Received', repr(data))
+    t1 = time.time()
+    print("Took: %f s" % (t1 - t0))
     print("\n")
     return data
