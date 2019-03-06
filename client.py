@@ -29,6 +29,10 @@ def perform_castling_at(cellA, cellB, cellC, cellD):
     message = 'perform_castling_at;' + str(cellA) + ';' + str(cellB) + ';' + str(cellC) + ';' + str(cellD)
     send(message)
 
+def en_passant(cellA, cellB, cellTake, piece):
+    message = 'en_passant;' + str(cellA) + ';' + str(cellB) + ';' + str(cellTake) + ';' + str(piece)
+    send(message)
+
 def reset():
     message = 'reset;'
     send(message)
