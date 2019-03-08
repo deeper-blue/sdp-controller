@@ -1,0 +1,66 @@
+{
+  "creator":  "yXiJ9pCyPCYBjoCaPFhzG7lFIb13",
+  "draw_offers": [{
+    "b": [{
+      "accepted": false,
+      "made": false
+    }],
+    "w": [{
+      "accepted": false,
+      "made": false
+    }],
+    "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+    "free_solts": 0
+    }],
+  "game_over": [{
+    "game_over": false,
+    "reason": null
+  }],
+  "history": [{
+    "0": [{
+      "capture": [{
+        "capture": false,
+        "piece": null
+      }],
+      "castle": [{
+        "castle": false,
+        "side": null
+      }],
+      "en_passant": [{
+        "en_passant": false,
+        "square": null
+      }],
+      "from": "e2",
+      "move_count": 1,
+      "piece": "p",
+      "ply_count": 1,
+      "promotion": [{
+        "piece": null,
+        "promotion": false
+      }],
+      "san": "e4",
+      "side": "w",
+      "to": "e4"
+    }]
+  }],
+  "id": "0IyrSzg4zxTdwo5ACr3U",
+  "in_progress": true,
+  "move_count": 1,
+  "pgn": "1.e4",
+  "players": [{
+    "b": "0ahdFOxCQwO40Vm6TACunb3rmjy2",
+    "w": "ILMK6st0ySMpO0oKJv3iJcFsrk03"
+  }],
+  "ply_count": 1,
+  "remaining_time": [{
+    "b": 3600,
+    "w": 3600
+  }],
+  "resigned": [{
+    "b": false,
+    "w": false
+  }],
+  "result": "*",
+  "time_controls": 3600,
+  "turn": "b"
+}
