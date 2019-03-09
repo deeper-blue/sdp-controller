@@ -4,11 +4,9 @@ import client as cl
 with open('test.json') as f:
     data = json.load(f)
 
-
-def parseJson(data):
-
-    move_count = data["move_count"]
-    move_data = data["history"]["move_count"]
+# Function to select the appropriate move based on the json data (move_data)
+# move_data has the form jsondata["history"][n], where n is the move identifier
+def parseJson(move_data):
 
     _from = move_data["from"]
     to = move_data["to"]
@@ -22,6 +20,10 @@ def parseJson(data):
     # Do take_piece
     if(move_data["capture"]["capture"]):
         piece = move_data["capture"]["capture"]["piece"]
+
+        rowP, colP = piece[:1], int(piece[1:])
+        piece_cell = (rowP,colP)
+
         cl.take_piece(cellA, cellB, piece)
     # Do castling
     elif(move_data["castle"]["castle"]):
@@ -35,10 +37,11 @@ def parseJson(data):
     # Do en_passant
     elif(move_data["en_passant"]["en_passant"]):
         piece = ["piece"]
+        rowP, colP = piece[:1], int(piece[1:])
+        piece_cell = (rowP,colP)
+
         cellTake = move_data["en_passant"]["en_passant"]["square"]
         cl.en_passant(cellA, cellB, cellTake, piece)
     # Do move_piece
     else:
         cl.move_piece(cellA, cellB)
-
-parseJson(data)
