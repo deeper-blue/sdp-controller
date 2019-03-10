@@ -8,6 +8,9 @@ with open('test.json') as f:
 # move_data has the form jsondata["history"][n], where n is the move identifier
 def parseJson(move_data):
 
+    if (move_data["game_over"]["game_over"]):
+        return "Game has finished"
+
     if (move_data==None):
         return "Data empty"
 
