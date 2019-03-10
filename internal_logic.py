@@ -6,7 +6,7 @@ with open('test.json') as f:
 
 # Function to select the appropriate move based on the json data (move_data)
 # move_data has the form jsondata["history"][n], where n is the move identifier
-def parseJson(move_data):
+def parseJson(move_data, plycount):
 
     if (move_data["game_over"]["game_over"]):
         return "Game has finished"
@@ -30,7 +30,9 @@ def parseJson(move_data):
         rowP, colP = piece[:1], int(piece[1:])
         piece_cell = (rowP,colP)
 
-        return cl.take_piece(cellA, cellB, piece)
+        cl.take_piece(cellA, cellB, piece)
+        plycount+=1
+        return ("", plycount)
 
     # Do castling
     elif(move_data["castle"]["castle"]):
@@ -40,7 +42,10 @@ def parseJson(move_data):
         else:
             cellC = (ord(cellA[0]-2),cellA[1])
             cellD = (ord(cellB[0]+3),cellB[1])
-        return cl.perform_castling_at(cellA, cellB, cellC, cellD)
+        cl.perform_castling_at(cellA, cellB, cellC, cellD)
+        plycount+=1
+        return ("", plycount)
+
     # Do en_passant
     elif(move_data["en_passant"]["en_passant"]):
         piece = ["piece"]
@@ -48,7 +53,12 @@ def parseJson(move_data):
         piece_cell = (rowP,colP)
 
         cellTake = move_data["en_passant"]["en_passant"]["square"]
-        return cl.en_passant(cellA, cellB, cellTake, piece)
+        cl.en_passant(cellA, cellB, cellTake, piece)
+        plycount+=1
+        return ("", plycount)
+
     # Do move_piece
     else:
-        return cl.move_piece(cellA, cellB)
+        cl.move_piece(cellA, cellB)
+        plycount+=1
+        return ("", plycount)
