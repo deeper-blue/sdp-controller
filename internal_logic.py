@@ -1,15 +1,12 @@
 import json
 import client as cl
 
-with open('test.json') as f:
-    data = json.load(f)
+
 
 # Function to select the appropriate move based on the json data (move_data)
 # move_data has the form jsondata["history"][n], where n is the move identifier
 def parseJson(move_data, plycount):
-
-    if (move_data["game_over"]["game_over"]):
-        return "Game has finished"
+    print(move_data)
 
     if (move_data==None):
         return "Data empty"
@@ -17,10 +14,10 @@ def parseJson(move_data, plycount):
     _from = move_data["from"]
     to = move_data["to"]
 
-    rowA, colA = _from[:1], int(_from[1:])
+    rowA, colA = _from[:1].upper(), int(_from[1:])
     cellA = (rowA,colA)
 
-    rowB, colB = to[:1], int(to[1:])
+    rowB, colB = to[:1].upper(), int(to[1:])
     cellB = (rowB,colB)
 
     # Do take_piece
@@ -32,7 +29,7 @@ def parseJson(move_data, plycount):
 
         cl.take_piece(cellA, cellB, piece)
         plycount+=1
-        return ("", plycount)
+        return plycount
 
     # Do castling
     elif(move_data["castle"]["castle"]):
@@ -44,7 +41,7 @@ def parseJson(move_data, plycount):
             cellD = (ord(cellB[0]+3),cellB[1])
         cl.perform_castling_at(cellA, cellB, cellC, cellD)
         plycount+=1
-        return ("", plycount)
+        return plycount
 
     # Do en_passant
     elif(move_data["en_passant"]["en_passant"]):
@@ -55,10 +52,10 @@ def parseJson(move_data, plycount):
         cellTake = move_data["en_passant"]["en_passant"]["square"]
         cl.en_passant(cellA, cellB, cellTake, piece)
         plycount+=1
-        return ("", plycount)
+        return plycount
 
     # Do move_piece
     else:
         cl.move_piece(cellA, cellB)
         plycount+=1
-        return ("", plycount)
+        return plycount
