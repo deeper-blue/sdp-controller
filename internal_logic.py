@@ -8,6 +8,9 @@ with open('test.json') as f:
 # move_data has the form jsondata["history"][n], where n is the move identifier
 def parseJson(move_data):
 
+    if (move_data==None):
+        return "Data empty"
+
     _from = move_data["from"]
     to = move_data["to"]
 
@@ -24,7 +27,8 @@ def parseJson(move_data):
         rowP, colP = piece[:1], int(piece[1:])
         piece_cell = (rowP,colP)
 
-        cl.take_piece(cellA, cellB, piece)
+        return cl.take_piece(cellA, cellB, piece)
+
     # Do castling
     elif(move_data["castle"]["castle"]):
         if (move_data["castle"]["side"]=='k'):
@@ -33,7 +37,7 @@ def parseJson(move_data):
         else:
             cellC = (ord(cellA[0]-2),cellA[1])
             cellD = (ord(cellB[0]+3),cellB[1])
-        cl.perform_castling_at(cellA, cellB, cellC, cellD)
+        return cl.perform_castling_at(cellA, cellB, cellC, cellD)
     # Do en_passant
     elif(move_data["en_passant"]["en_passant"]):
         piece = ["piece"]
@@ -41,7 +45,7 @@ def parseJson(move_data):
         piece_cell = (rowP,colP)
 
         cellTake = move_data["en_passant"]["en_passant"]["square"]
-        cl.en_passant(cellA, cellB, cellTake, piece)
+        return cl.en_passant(cellA, cellB, cellTake, piece)
     # Do move_piece
     else:
-        cl.move_piece(cellA, cellB)
+        return cl.move_piece(cellA, cellB)
