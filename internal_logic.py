@@ -22,35 +22,34 @@ def parseJson(move_data, plycount):
 
     # Do take_piece
     if(move_data["capture"]["capture"]):
-        piece = move_data["capture"]["capture"]["piece"]
-
-        rowP, colP = piece[:1], int(piece[1:])
+        piece_str = move_data["capture"]["initial_pos_piece"]
+        rowP, colP = piece_str[:1].upper(), int(piece_str[1:])
         piece_cell = (rowP,colP)
 
-        cl.take_piece(cellA, cellB, piece)
+        cl.take_piece(cellA, cellB, piece_cell)
         plycount+=1
         return plycount
 
     # Do castling
     elif(move_data["castle"]["castle"]):
         if (move_data["castle"]["side"]=='k'):
-            cellC = (ord(cellA[0]+2),cellA[1])
-            cellD = (ord(cellB[0]-2),cellB[1])
+            cellC = ('H',cellA[1])
+            cellD = ('F',cellB[1])
         else:
-            cellC = (ord(cellA[0]-2),cellA[1])
-            cellD = (ord(cellB[0]+3),cellB[1])
-        cl.perform_castling_at(cellA, cellB, cellC, cellD)
+            cellC = ('A',cellA[1])
+            cellD = ('D',cellB[1])
+        cl.perform_castling_at(cellA, cellC, cellB, cellD)
         plycount+=1
         return plycount
 
     # Do en_passant
     elif(move_data["en_passant"]["en_passant"]):
-        piece = ["piece"]
-        rowP, colP = piece[:1], int(piece[1:])
+        piece = move_data["en_passant"]["initial_pos_piece"]
+        rowP, colP = piece[:1].upper(), int(piece[1:])
         piece_cell = (rowP,colP)
 
-        cellTake = move_data["en_passant"]["en_passant"]["square"]
-        cl.en_passant(cellA, cellB, cellTake, piece)
+        cellTake = move_data["en_passant"]["square"]
+        cl.en_passant(cellA, cellB, cellTake, piece_cell)
         plycount+=1
         return plycount
 
