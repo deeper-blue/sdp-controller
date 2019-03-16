@@ -1,23 +1,30 @@
 import communication
 import time
 import json
-#import internal_logic
+import internal_logic
 
 counter=0
 req=communication.Requester('1111','1111')
 def Control():
     contReq=True
+
     ply_count=0
     while contReq:
+        t0 = time.time()
         r=req.sendResponse(ply_count)
-        jsonfile=r.json()
-        print(jsonfile)
+        if(r.status_code==200):
+            t1 =  time.time()
+            print("Got response: %fs" % (t1 - t0))
+            jsonfile=r.json()
+            print(jsonfile)
 
-        for actions in (jsonfile["history"]):
-            error,ply_count= internal_logic.parseJson(jsonfile["history"]["actions"])
-            if error=="":
+            for actions,i in enumerate (jsonfile["history"]):
+                ply_count= internal_logic.parseJson(jsonfile["history"][actions],ply_count)
                 r=req.sendResponse(ply_count)
-            contReq=stop
-            print(r)
-        time.sleep(10)
+                print(r)
+            time.sleep(10)
+            t2 = time.time()
+            print("Took: %fs" % (t2 - t0))
+            print("\n")
+
 Control()
