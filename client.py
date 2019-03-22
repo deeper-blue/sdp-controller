@@ -6,9 +6,12 @@
 
 import socket
 import time
+from controller_config import config
 
-HOST = '192.168.105.116'  # The server's hostname or IP address
-PORT = 64432        # The port used by the server
+# Arguably dangerous to assume these exist, but OK to crash if they don't
+# since these values are necessary
+HOST = config['robot']['ip']
+PORT = config['robot']['port']
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 

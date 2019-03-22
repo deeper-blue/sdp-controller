@@ -1,0 +1,7 @@
+robot:
+    ip: '192.168.105.116'
+    port: 64432
+
+controller:
+    id: 'CHANGE_ME'
+    version: '0.0.1'
