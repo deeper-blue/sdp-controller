@@ -2,7 +2,6 @@ import json
 import client as cl
 
 
-
 # Function to select the appropriate move based on the json data (move_data)
 # move_data has the form jsondata["history"][n], where n is the move identifier
 def parseJson(move_data, plycount):
@@ -40,7 +39,9 @@ def parseJson(move_data, plycount):
         else:
             cellC = ('A',cellA[1])
             cellD = ('D',cellB[1])
-        cl.perform_castling_at(cellA, cellC, cellB, cellD)
+
+        pieceA = move_data['piece']
+        cl.perform_castling_at(cellA, cellC, cellB, cellD, pieceA,)
         plycount+=1
         return plycount
 
