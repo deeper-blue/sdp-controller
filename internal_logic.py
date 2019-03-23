@@ -22,11 +22,13 @@ def parseJson(move_data, plycount):
 
     # Do take_piece
     if(move_data["capture"]["capture"]):
+        pieceA = move_data['piece']
+        pieceB = move_data['capture']['piece']
         piece_str = move_data["capture"]["initial_pos_piece"]
         rowP, colP = piece_str[:1].upper(), int(piece_str[1:])
         piece_cell = (rowP,colP)
 
-        cl.take_piece(cellA, cellB, piece_cell)
+        cl.take_piece(cellA, cellB, piece_cell, pieceA, pieceB)
         plycount+=1
         return plycount
 
@@ -48,13 +50,16 @@ def parseJson(move_data, plycount):
         rowP, colP = piece[:1].upper(), int(piece[1:])
         piece_cell = (rowP,colP)
 
+        piece = 'p'
+
         cellTake = move_data["en_passant"]["square"]
-        cl.en_passant(cellA, cellB, cellTake, piece_cell)
+        cl.en_passant(cellA, cellB, cellTake, piece_cell, piece)
         plycount+=1
         return plycount
 
     # Do move_piece
     else:
-        cl.move_piece(cellA, cellB)
+        piece = move_data['piece']
+        cl.move_piece(cellA, cellB, piece)
         plycount+=1
         return plycount
