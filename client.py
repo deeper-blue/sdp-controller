@@ -12,8 +12,27 @@ from controller_config import config
 # since these values are necessary
 HOST = config['robot']['ip']
 PORT = config['robot']['port']
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((HOST, PORT))
+
+# Socket for connecting to robot
+s = None
+
+# Whether the connection is open
+conn_open = False
+
+# Open connection
+def open():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((HOST, PORT))
+        conn_open = True
+    except Exception as exception:
+        conn_open = False
+        print("Connection failed: %s" % (repr(exception)))
+
+# Close connection once done
+def close():
+    s.close()
+    conn_open = False
 
 # The following several functions are to convert the given commands into a later seperatable string
 def move_piece(cellA,cellB):

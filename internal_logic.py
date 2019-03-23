@@ -1,7 +1,9 @@
 import json
 import client as cl
 
-
+# Close connection to robot
+def close():
+    cl.close()
 
 # Function to select the appropriate move based on the json data (move_data)
 # move_data has the form jsondata["history"][n], where n is the move identifier
@@ -19,6 +21,10 @@ def parseJson(move_data, plycount):
 
     rowB, colB = to[:1].upper(), int(to[1:])
     cellB = (rowB,colB)
+
+    # Make sure client connection is open
+    if cl.conn_open == False:
+        cl.open()
 
     # Do take_piece
     if(move_data["capture"]["capture"]):

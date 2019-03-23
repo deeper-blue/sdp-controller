@@ -34,3 +34,6 @@ def control_loop():
             print("\n")
 
 control_loop()
+
+# Close robot connection
+internal_logic.close()
