@@ -40,8 +40,9 @@ def parseJson(move_data, plycount):
             cellC = ('A',cellA[1])
             cellD = ('D',cellB[1])
 
-        pieceA = move_data['piece']
-        cl.perform_castling_at(cellA, cellC, cellB, cellD, pieceA,)
+        pieceA = 'k'
+        pieceB = 'r'
+        cl.perform_castling_at(cellA, cellC, cellB, cellD, pieceA, pieceB)
         plycount+=1
         return plycount
 
