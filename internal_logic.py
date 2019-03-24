@@ -52,10 +52,9 @@ def parseJson(move_data, plycount):
         rowP, colP = piece[:1].upper(), int(piece[1:])
         piece_cell = (rowP,colP)
 
-        piece = 'p'
 
         cellTake = move_data["en_passant"]["square"]
-        cl.en_passant(cellA, cellB, cellTake, piece_cell, piece)
+        cl.en_passant(cellA, cellB, cellTake, piece_cell)
         plycount+=1
         return plycount
 
