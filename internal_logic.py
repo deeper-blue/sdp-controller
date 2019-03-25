@@ -2,7 +2,6 @@ import json
 import client as cl
 
 
-
 # Function to select the appropriate move based on the json data (move_data)
 # move_data has the form jsondata["history"][n], where n is the move identifier
 def parseJson(move_data, plycount):
@@ -22,11 +21,13 @@ def parseJson(move_data, plycount):
 
     # Do take_piece
     if(move_data["capture"]["capture"]):
+        pieceA = move_data['piece']
+        pieceB = move_data['capture']['piece']
         piece_str = move_data["capture"]["initial_pos_piece"]
         rowP, colP = piece_str[:1].upper(), int(piece_str[1:])
         piece_cell = (rowP,colP)
 
-        cl.take_piece(cellA, cellB, piece_cell)
+        cl.take_piece(cellA, cellB, piece_cell, pieceA, pieceB)
         plycount+=1
         return plycount
 
@@ -38,7 +39,10 @@ def parseJson(move_data, plycount):
         else:
             cellC = ('A',cellA[1])
             cellD = ('D',cellB[1])
-        cl.perform_castling_at(cellA, cellC, cellB, cellD)
+
+        pieceA = 'k'
+        pieceB = 'r'
+        cl.perform_castling_at(cellA, cellC, cellB, cellD, pieceA, pieceB)
         plycount+=1
         return plycount
 
@@ -48,6 +52,7 @@ def parseJson(move_data, plycount):
         rowP, colP = piece[:1].upper(), int(piece[1:])
         piece_cell = (rowP,colP)
 
+
         cellTake = move_data["en_passant"]["square"]
         cl.en_passant(cellA, cellB, cellTake, piece_cell)
         plycount+=1
@@ -55,6 +60,7 @@ def parseJson(move_data, plycount):
 
     # Do move_piece
     else:
-        cl.move_piece(cellA, cellB)
+        piece = move_data['piece']
+        cl.move_piece(cellA, cellB, piece)
         plycount+=1
         return plycount
