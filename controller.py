@@ -1,3 +1,4 @@
+import sys
 import communication
 import time
 import json
@@ -33,7 +34,11 @@ def control_loop():
             print("Took: {}s".format(t2 - t0))
             print("\n")
 
-control_loop()
+try:
+    control_loop()
+except KeyboardInterrupt:
+    internal_logic.close()
+    sys.exit(0)
 
 # Close robot connection
 internal_logic.close()
