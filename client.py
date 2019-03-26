@@ -27,7 +27,7 @@ def open():
         conn_open = True
     except Exception as exception:
         conn_open = False
-        print("Connection failed: %s" % (repr(exception)))
+        print("Connection failed: {}".format(exception))
 
 # Close connection once done
 def close():
