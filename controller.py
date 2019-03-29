@@ -4,15 +4,33 @@ import time
 import json
 import internal_logic
 from controller_config import config
+import client as cl
 
 # Arguably dangerous to assume these exist, but OK to crash if they don't
 # since these values are necessary
-controller_id = config['controller']['id']
+
+
+
+
+
+
+
 version = config['controller']['version']
+
+if len(sys.argv)==1:
+    controller_id = config['controller']['id']
+    robot_ip = config['robot']['ip']
+else:
+    controller_id = sys.argv[1]
+    robot_ip = sys.argv[2]
+
+
+
 
 req = communication.Requester(controller_id, version)
 
 def control_loop():
+
     ply_count = 0
 
     while True:
