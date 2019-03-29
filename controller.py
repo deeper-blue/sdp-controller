@@ -8,13 +8,6 @@ import client as cl
 
 # Arguably dangerous to assume these exist, but OK to crash if they don't
 # since these values are necessary
-
-
-
-
-
-
-
 version = config['controller']['version']
 
 if len(sys.argv)==1:
