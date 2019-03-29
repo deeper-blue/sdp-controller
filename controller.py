@@ -10,10 +10,13 @@ import client as cl
 # since these values are necessary
 version = config['controller']['version']
 
+command_line = False
+
 if len(sys.argv)==1:
     controller_id = config['controller']['id']
     robot_ip = config['robot']['ip']
 else:
+    command_line = True
     controller_id = sys.argv[1]
     robot_ip = sys.argv[2]
 

@@ -7,10 +7,14 @@
 import socket
 import time
 from controller_config import config
+import controller as con
 
 # Arguably dangerous to assume these exist, but OK to crash if they don't
 # since these values are necessary
-HOST = config['robot']['ip']
+if command_line:
+    HOST = con.robot_ip
+else:
+    HOST = config['robot']['ip']
 PORT = config['robot']['port']
 
 # Socket for connecting to robot
