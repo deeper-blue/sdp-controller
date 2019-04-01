@@ -9,17 +9,10 @@ import client as cl
 # Arguably dangerous to assume these exist, but OK to crash if they don't
 # since these values are necessary
 version = config['controller']['version']
+controller_id = config['controller']['id']
 
-command_line = False
-
-if len(sys.argv)==1:
-    controller_id = config['controller']['id']
-    robot_ip = config['robot']['ip']
-else:
-    command_line = True
+if len(sys.argv)>1:
     controller_id = sys.argv[1]
-    robot_ip = sys.argv[2]
-
 
 
 
