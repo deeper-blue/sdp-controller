@@ -12,6 +12,8 @@ from square_piece import square_to_piece
 version = config['controller']['version']
 controller_id = config['controller']['id']
 
+if len(sys.argv)>1:
+    controller_id = sys.argv[1]
 
 req = communication.Requester(controller_id, version)
 
