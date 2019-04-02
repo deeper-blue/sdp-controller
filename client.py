@@ -26,8 +26,10 @@ conn_open = False
 
 # Open connection
 def open():
+    global s
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print("Connecting to {}:{}".format(HOST, PORT))
         s.connect((HOST, PORT))
         conn_open = True
     except Exception as exception:
@@ -40,20 +42,20 @@ def close():
     conn_open = False
 
 # The following several functions are to convert the given commands into a later seperatable string
-def move_piece(cellA,cellB):
-    message = 'move_piece;' + str(cellA) + ';' + str(cellB)
+def move_piece(cellA,cellB, piece_type):
+    message = 'move_piece;' + str(cellA) + ';' + str(cellB) + ';' + str(piece_type)
     send(message)
 
-def move(cellA, cellB):
-    message = 'move;' + str(cellA) + ';' + str(cellB)
+def move(cellA, cellB, piece_type):
+    message = 'move;' + str(cellA) + ';' + str(cellB) + ';' + str(piece_type)
     send(message)
 
-def take_piece(cellA, cellB, piece):
-    message = 'take_piece;' + str(cellA) + ';' + str(cellB) + ';' + str(piece)
+def take_piece(cellA, cellB, piece, piece_typeA, piece_typeB):
+    message = 'take_piece;' + str(cellA) + ';' + str(cellB) + ';' + str(piece) + ';' + str(piece_typeA) + ';' + str(piece_typeB)
     send(message)
 
-def perform_castling_at(cellA, cellB, cellC, cellD):
-    message = 'perform_castling_at;' + str(cellA) + ';' + str(cellB) + ';' + str(cellC) + ';' + str(cellD)
+def perform_castling_at(cellA, cellB, cellC, cellD, piece_typeA, piece_typeB):
+    message = 'perform_castling_at;' + str(cellA) + ';' + str(cellB) + ';' + str(cellC) + ';' + str(cellD) + ';' + str(piece_typeA) + ';' + str(piece_typeB)
     send(message)
 
 def en_passant(cellA, cellB, cellTake, piece):
