@@ -3,5 +3,5 @@ robot:
     port: 64432
 
 controller:
-    id: 'CHANGE_ME'
+    id: 'kevin'
     version: '0.0.1'
